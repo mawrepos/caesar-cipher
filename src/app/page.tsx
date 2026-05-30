@@ -363,7 +363,7 @@ export default function CaesarPage() {
         </div>
 
         <footer className="text-center text-gray-400 text-sm pb-4">
-          Für Anton — gebaut mit Next.js & Tailwind
+          von Anton — gebaut mit Next.js & Tailwind
         </footer>
       </div>
     </main>

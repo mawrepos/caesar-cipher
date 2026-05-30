@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -25,8 +25,7 @@ function CaesarWheel({ shift, onShiftChange }: { shift: number; onShiftChange: (
   const innerR = 112;
   const markerR = 168;
 
-  // Drag state
-  const [dragging, setDragging] = useState(false);
+  const dragging = useRef(false);
 
   function angleForIndex(i: number) {
     return (i * 360) / 26 - 90; // start at top
@@ -41,7 +40,7 @@ function CaesarWheel({ shift, onShiftChange }: { shift: number; onShiftChange: (
   }
 
   function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
-    if (!dragging) return;
+    if (!dragging.current) return;
     const svg = e.currentTarget;
     const rect = svg.getBoundingClientRect();
     const x = e.clientX - rect.left - cx;
@@ -61,9 +60,9 @@ function CaesarWheel({ shift, onShiftChange }: { shift: number; onShiftChange: (
         height={size}
         viewBox={`0 0 ${size} ${size}`}
         className="cursor-grab active:cursor-grabbing select-none touch-none"
-        onPointerDown={() => setDragging(true)}
-        onPointerUp={() => setDragging(false)}
-        onPointerLeave={() => setDragging(false)}
+        onPointerDown={(e) => { dragging.current = true; e.currentTarget.setPointerCapture(e.pointerId); }}
+        onPointerUp={() => { dragging.current = false; }}
+        onPointerLeave={() => { dragging.current = false; }}
         onPointerMove={handlePointerMove}
       >
         {/* Outer ring background */}

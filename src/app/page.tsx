@@ -176,12 +176,8 @@ function CaesarWheel({ shift, onShiftChange }: { shift: number; onShiftChange: (
       </div>
 
       <div className="flex gap-8 text-sm font-semibold">
-        <span className="text-blue-700">
-          🔵 Außen = Klartext
-        </span>
-        <span className="text-amber-600">
-          🟡 Innen = Geheimtext
-        </span>
+        <span className="text-blue-700">Außen = Klartext</span>
+        <span className="text-amber-600">Innen = Geheimtext</span>
       </div>
       <p className="text-xs text-gray-400">Rad drehen oder Pfeile klicken</p>
     </div>
@@ -221,14 +217,15 @@ export default function CaesarPage() {
       <div className="max-w-3xl mx-auto space-y-8">
 
         {/* Header */}
-        <div className="text-center space-y-2 pt-4">
-          <h1 className="text-4xl font-black text-blue-900">🔐 Caesar-Verschlüsselung</h1>
+        <div className="text-center space-y-1 pt-4">
+          <p className="text-sm font-semibold uppercase tracking-widest text-gray-400">Antons GFS Referat</p>
+          <h1 className="text-4xl font-black text-blue-900">Caesar-Verschlüsselung</h1>
           <p className="text-lg text-gray-600">Lerne, wie Julius Caesar geheime Nachrichten schrieb!</p>
         </div>
 
         {/* Erklärungsbox */}
         <div className="bg-white rounded-2xl shadow-sm border border-blue-100 p-6 space-y-3">
-          <h2 className="text-xl font-bold text-blue-800">📜 Wie funktioniert das?</h2>
+          <h2 className="text-xl font-bold text-blue-800">Wie funktioniert das?</h2>
           <p className="text-gray-700">
             Vor über 2000 Jahren nutzte Julius Caesar einen einfachen Trick: Er verschob jeden
             Buchstaben im Alphabet um eine feste Anzahl an Stellen. Mit Versatz{" "}
@@ -244,7 +241,7 @@ export default function CaesarPage() {
 
         {/* Caesar Wheel */}
         <div className="bg-white rounded-2xl shadow-sm border border-blue-100 p-6 space-y-4">
-          <h2 className="text-xl font-bold text-blue-800">🎡 Das Caesar-Rad</h2>
+          <h2 className="text-xl font-bold text-blue-800">Das Caesar-Rad</h2>
           <p className="text-sm text-gray-500">
             Dreh das Rad oder nutze den Slider — der innere Ring verschiebt sich und zeigt dir
             immer, welcher Buchstabe zu welchem wird.
@@ -256,7 +253,7 @@ export default function CaesarPage() {
 
         {/* Encoder */}
         <div className="bg-white rounded-2xl shadow-sm border border-blue-100 p-6 space-y-6">
-          <h2 className="text-xl font-bold text-blue-800">🧪 Nachricht verschlüsseln</h2>
+          <h2 className="text-xl font-bold text-blue-800">Nachricht verschlüsseln</h2>
 
           <div className="flex gap-2">
             <button
@@ -265,7 +262,7 @@ export default function CaesarPage() {
                 mode === "encrypt" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
               }`}
             >
-              🔒 Verschlüsseln
+              Verschlüsseln
             </button>
             <button
               onClick={() => setMode("decrypt")}
@@ -273,7 +270,7 @@ export default function CaesarPage() {
                 mode === "decrypt" ? "bg-amber-500 text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
               }`}
             >
-              🔓 Entschlüsseln
+              Entschlüsseln
             </button>
           </div>
 
@@ -311,7 +308,7 @@ export default function CaesarPage() {
 
         {/* Fun fact */}
         <div className="bg-blue-600 text-white rounded-2xl p-6 space-y-2">
-          <h2 className="text-xl font-bold">💡 Wusstest du?</h2>
+          <h2 className="text-xl font-bold">Wusstest du?</h2>
           <p>
             Die Caesar-Verschlüsselung ist zwar einfach, aber heute nicht mehr sicher —
             es gibt nur <strong>25 mögliche Schlüssel</strong>, die ein Computer in
@@ -324,7 +321,7 @@ export default function CaesarPage() {
         </div>
 
         <footer className="text-center text-gray-400 text-sm pb-4">
-          Für Anton 🚀 — gebaut mit Next.js & Tailwind
+          Für Anton — gebaut mit Next.js & Tailwind
         </footer>
       </div>
     </main>

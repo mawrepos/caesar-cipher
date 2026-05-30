@@ -1,6 +1,45 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+
+type PingStatus = "checking" | "live" | "slow" | "offline";
+
+function StatusBadge() {
+  const [status, setStatus] = useState<PingStatus>("checking");
+  const [ms, setMs] = useState<number | null>(null);
+
+  useEffect(() => {
+    const check = async () => {
+      setStatus("checking");
+      const start = Date.now();
+      try {
+        await fetch("/api/ping", { cache: "no-store" });
+        const elapsed = Date.now() - start;
+        setMs(elapsed);
+        setStatus(elapsed < 1500 ? "live" : "slow");
+      } catch {
+        setStatus("offline");
+      }
+    };
+    check();
+    const interval = setInterval(check, 30_000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const config = {
+    checking: { dot: "bg-gray-400 animate-pulse", label: "Prüfe Status...", text: "text-gray-500" },
+    live:     { dot: "bg-green-500",              label: `Live${ms ? ` · ${ms} ms` : ""}`, text: "text-green-700" },
+    slow:     { dot: "bg-yellow-400",             label: `Gestartet${ms ? ` · ${ms} ms` : ""}`, text: "text-yellow-700" },
+    offline:  { dot: "bg-red-500",                label: "Offline", text: "text-red-700" },
+  }[status];
+
+  return (
+    <div className={`inline-flex items-center gap-1.5 text-xs font-medium ${config.text}`}>
+      <span className={`w-2 h-2 rounded-full ${config.dot}`} />
+      {config.label}
+    </div>
+  );
+}
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -221,6 +260,9 @@ export default function CaesarPage() {
           <p className="text-sm font-semibold uppercase tracking-widest text-gray-400">Antons GFS Referat</p>
           <h1 className="text-4xl font-black text-blue-900">Caesar-Verschlüsselung</h1>
           <p className="text-lg text-gray-600">Lerne, wie Julius Caesar geheime Nachrichten schrieb!</p>
+          <div className="flex justify-center pt-1">
+            <StatusBadge />
+          </div>
         </div>
 
         {/* Erklärungsbox */}
